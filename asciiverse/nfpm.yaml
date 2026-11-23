@@ -1,0 +1,43 @@
+# System packages (.deb, .rpm, .apk, Arch) for Ambassador of Pain, built
+# by nfpm from the same static binary as the av archive. The release
+# workflow sets VERSION, RELEASE (our packaging release) and ARCH (amd64
+# or arm64).
+#
+# The program is /usr/bin/aop, upstream's own name (no distribution ships
+# another aop); it finds the levels in /usr/share/ambassador-of-pain/levels.
+# No .desktop file on purpose: av is the one place titles are started from.
+name: ambassador-of-pain
+arch: ${ARCH}
+platform: linux
+version: ${VERSION}
+release: ${RELEASE}
+section: games
+priority: optional
+maintainer: Asciiverse <packages@asciiverse.sh>
+vendor: Asciiverse
+homepage: https://github.com/theasciiverse/ambassador-of-pain
+license: GPL-3.0-only
+description: |
+  An arcade game in 64 lines of C.
+  Steer a rolling ball through eleven walled levels into the at-sign,
+  with five lives and the points running down all the while. By Raffael
+  Himmelreich and Claire Wolf. Packaged by Asciiverse.
+contents:
+  - src: build/linux/aop
+    dst: /usr/bin/aop
+    file_info: { mode: 0755 }
+  - src: ./aop-level-*.txt
+    dst: /usr/share/ambassador-of-pain/levels/
+    file_info: { mode: 0644 }
+  - src: empty-level.txt
+    dst: /usr/share/ambassador-of-pain/levels/empty-level.txt
+    file_info: { mode: 0644 }
+  - src: LICENSE
+    dst: /usr/share/doc/ambassador-of-pain/copyright
+    file_info: { mode: 0644 }
+  - src: asciiverse/README.md
+    dst: /usr/share/doc/ambassador-of-pain/README.md
+    file_info: { mode: 0644 }
+  - src: PATCHES.md
+    dst: /usr/share/doc/ambassador-of-pain/PATCHES.md
+    file_info: { mode: 0644 }
