@@ -15,9 +15,10 @@ genre = "arcade"
 name = "Asciiverse"
 url = "https://asciiverse.sh"
 
-# upstream's master at c3f00fd (2020-08-03), release 0.6; aop.c and the
-# levels are byte for byte the 2004 aop-0.6.tar.gz; PATCHES.md in
-# theasciiverse/ambassador-of-pain
+# upstream's master at c3f00fd (2020-08-03), release 0.6; aop.c and ten
+# levels are byte for byte the 2004 aop-0.6.tar.gz, level 6's speech is
+# ours (see PATCHES.md in
+# theasciiverse/ambassador-of-pain)
 [upstream]
 name = "Raffael Himmelreich and Claire Wolf"
 url = "https://github.com/hit-sys/Ambassador-Of-Pain"
