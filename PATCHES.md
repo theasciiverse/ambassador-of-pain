@@ -18,7 +18,16 @@ version 3 stands: the catalog lists `GPL-3.0-only` and the archives ship
 
 ## The game
 
-Unchanged, every byte: `aop.c` is still 64 lines, and it and all eleven
+`aop.c` is unchanged, every byte, and still 64 lines. Ten of the eleven
+levels are unchanged too. Level 6 had a cartoon alien taken from a TV
+show, asking for toilet paper for a body part and inviting the player to
+be one; that speech does not fit a family catalog. Its four lines of
+text are rewritten as our own (an alien who wants socks knitted), in the
+same rows and starting columns and no wider than before, so the walls of
+the maze move only where the letters changed and the art and the goal
+stay put.
+
+Before that one change, `aop.c` and all eleven
 levels, `empty-level.txt` and `COPYING` are identical to the original
 `aop-0.6.tar.gz` of 2004-04-14 (sha256
 68a8b6b8f08216b31895d536f7dc4beb137a787fd17096da2d46fd863497f65a, from
