@@ -7,7 +7,8 @@
 #   Windows: sh asciiverse/build.sh  in an MSYS2 UCRT64 or CLANGARM64 shell
 #            with pdcurses installed (linked statically)
 #
-# aop.c is compiled exactly as it is, with -Dmain=aop_main, and linked
+# aop.c is compiled exactly as it is, with -Dmain=aop_main and
+# -include asciiverse/centre.h (which centres it), and linked
 # with asciiverse/launch.c, which finds the levels beside the program
 # (see the comment there). Outside Alpine on Linux it links the system's
 # ncurses dynamically, for trying it out.
@@ -38,10 +39,17 @@ case $platform in
     if [ -f /etc/alpine-release ]; then libs="-static -lncursesw"; else libs="-lncurses"; fi
     exe=aop ;;
   macos)   libs="-lncurses"; exe=aop ;;
-  windows) libs="-static -lpdcurses"; exe=aop.exe ;;
+  windows) libs="-static -lpdcurses_wincon"; exe=aop.exe ;;
 esac
+# MSYS2's pdcurses keeps curses.h in include/pdcurses and the console
+# build as libpdcurses_wincon.a
+inc=
+[ "$platform" = windows ] && [ -d "${MSYSTEM_PREFIX:-/nonexistent}/include/pdcurses" ] \
+  && inc="-I$MSYSTEM_PREFIX/include/pdcurses"
 libs=${LIBS:-$libs}
-$CC $CFLAGS -Dmain=aop_main -c aop.c -o "$out/aop.o"
-$CC $CFLAGS -c asciiverse/launch.c -o "$out/launch.o"
+# -include asciiverse/centre.h: the field in the middle of the terminal,
+# with aop.c itself unchanged (see the comment there)
+$CC $CFLAGS $inc -Dmain=aop_main -include asciiverse/centre.h -c aop.c -o "$out/aop.o"
+$CC $CFLAGS $inc -c asciiverse/launch.c -o "$out/launch.o"
 $CC $CFLAGS -o "$out/$exe" "$out/launch.o" "$out/aop.o" $libs
 ${STRIP:-strip} "$out/$exe"

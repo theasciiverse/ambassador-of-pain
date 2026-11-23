@@ -49,6 +49,15 @@ github.com/buribu/aop. Only upstream's Makefile differs from the tarball's
   and the score after leaving the screen. Started with no arguments from
   a terminal, the launcher then waits for Enter, so the score is not wiped
   at once by av taking the screen back.
+- **Centred** (`asciiverse/centre.h`, new): the game drew its 80x24
+  field in the top left corner of the terminal. `aop.c` is compiled with
+  `-include asciiverse/centre.h`, which includes `curses.h` first and
+  sends the game's only two drawing calls, `mvaddch` for the field and
+  `mvprintw` for the lives and points line, through two small functions
+  that add an offset putting the field in the middle. When `aop.c`
+  includes `curses.h` itself, the include guard makes that a no-op, so the
+  64 lines still compile exactly as written. The game redraws the whole
+  field every frame, so it follows a resize too.
 - No saves, settings or logs: the game writes nothing, so there is no
   state folder.
 
@@ -57,12 +66,14 @@ github.com/buribu/aop. Only upstream's Makefile differs from the tarball's
 `asciiverse/build.sh` compiles `aop.c` and the launcher directly. Linux
 links ncurses statically in Alpine, so the binary needs nothing installed
 and reads the system's terminfo; macOS links the system ncurses; Windows
-links PDCurses statically from MSYS2 (MinGW's `unistd.h` has the
+links PDCurses statically from MSYS2, whose package keeps `curses.h` in
+`include/pdcurses` and the console build as `libpdcurses_wincon.a` (MinGW's `unistd.h` has the
 `usleep` and `sleep` the game calls).
 
 ## Packaging
 
-- `asciiverse/build.sh`, `asciiverse/launch.c` (new): the build above.
+- `asciiverse/build.sh`, `asciiverse/launch.c`, `asciiverse/centre.h`
+  (new): the build above.
 - `asciiverse/package.sh` (new): the av archive, with the program, the
   levels in `levels/`, our `README.md`, upstream's README as `TRIVIA.md`,
   `LICENSE` and this file.

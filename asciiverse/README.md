@@ -60,7 +60,8 @@ A level is a text file of 24 lines of 80 characters, like
   (https://github.com/hit-sys/Ambassador-Of-Pain), GNU GPL version 3
   (`LICENSE`)
 - Packaged for Asciiverse: the launcher that finds the levels beside the
-  program is ours (`PATCHES.md`); the 64 lines are theirs, unchanged
+  program and the header that centres the field are ours (`PATCHES.md`);
+  the 64 lines are theirs, unchanged
 
 ## Building
 
